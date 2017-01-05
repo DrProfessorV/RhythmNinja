@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RhythmNinja.CSharp.Plugins", "RhythmNinja.CSharp.Plugins.csproj", "{4417E7A1-6285-F87E-96AD-EE5C754EF932}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RhythmNinja.CSharp", "RhythmNinja.CSharp.csproj", "{A7BBC851-9169-2E8F-2259-7BC64DD40D45}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RhythmNinja.CSharp.Editor", "RhythmNinja.CSharp.Editor.csproj", "{159BE0FA-0854-3CB7-646C-5FA8ECBFD2DE}"
@@ -11,6 +13,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4417E7A1-6285-F87E-96AD-EE5C754EF932}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4417E7A1-6285-F87E-96AD-EE5C754EF932}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4417E7A1-6285-F87E-96AD-EE5C754EF932}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4417E7A1-6285-F87E-96AD-EE5C754EF932}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A7BBC851-9169-2E8F-2259-7BC64DD40D45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A7BBC851-9169-2E8F-2259-7BC64DD40D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7BBC851-9169-2E8F-2259-7BC64DD40D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
