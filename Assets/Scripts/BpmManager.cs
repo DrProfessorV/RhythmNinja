@@ -25,6 +25,8 @@ public class BpmManager : MonoBehaviour {
 
     public void Play(float bpm, int signature)
     {
+        startBPM = bpm;
+        currentBPM = bpm;
         audioSource = GetComponent<AudioSource>();
         lastBeatTime = Time.time;
         beatsPerSecond = 60.0f / currentBPM;
