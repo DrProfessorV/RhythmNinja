@@ -7,16 +7,19 @@ public class Jukebox : MonoBehaviour {
     BpmManager bpm;
     public Material pulseMaterial;
     private BeatObserver observer;
-
+    public GameObject spawnPoint;
     public List<Obstacle> obstacles;
 
     void Start()
     {
         observer = GetComponent<BeatObserver>();
-        //obstacles = new List<Obstacle>();
-        /*bpm = GetComponent<BpmManager>();
-        bpm.Play(100, 4);
-        BpmManager.beatEvent += OnBeat;*/
+
+        Obstacle[] tempObs = spawnPoint.GetComponentsInChildren<Obstacle>();
+        for (int i = 0; i < tempObs.Length; i++)
+        {
+            tempObs[i].Initialize(10, Obstacle.Direction.Horizontal, Obstacle.Motion.Block, this);
+            obstacles[i] = tempObs[i];
+        }
     }
 
     void Update()
@@ -26,6 +29,11 @@ public class Jukebox : MonoBehaviour {
             Pulse();
             Advance();
         }
+    }
+
+    public void Remove(Obstacle obstacle)
+    {
+        obstacles.Remove(obstacle);
     }
 
     void OnBeat(int beat)
