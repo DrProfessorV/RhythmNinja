@@ -8,43 +8,101 @@ public class Obstacle : MonoBehaviour {
     Direction _direction;
     Motion _motion;
     Jukebox juke;
+    Animator anim;
 
     int stepsAway;
+    private bool checking;
 
    public void Initialize(int totalSteps, Direction direction, Motion motion, Jukebox _juke)
     {
         stepsAway = totalSteps;
         juke = _juke;
+        anim = GetComponent<Animator>();
     }
 
 	// Use this for initialization
 	public void Advance () {
-        Debug.Log("Move forward");
-        if (stepsAway > 1)
+        //Debug.Log("Move forward");
+        if (stepsAway > 2)
         {
             transform.DOLocalMoveZ(transform.localPosition.z - 2.0f, 0.1f);
         }
-        else if(stepsAway == 1)
+        else if (stepsAway == 2)
+        {
+            Windup();
+            transform.DOLocalMoveZ(transform.localPosition.z - 2.0f, 0.1f);
+        }
+        else if (stepsAway == 1)
         {
             Action();
         }
-        else
+        else if (stepsAway == 0)
         {
-            juke.Remove(this);
             Destroy(gameObject);
+            juke.Remove(this);
         }
         transform.DOScale(1.05f, 0.5f).OnComplete(() => { transform.DOScale(1.2f, 0.5f); });
         stepsAway--;
 	}
 
+    void Windup()
+    {
+        if (_motion == Motion.Block)
+        {
+            if (_direction == Direction.Horizontal)
+            {
+                anim.SetInteger("attack", 1);
+            }
+            else if (_direction == Direction.Vertical)
+            {
+                anim.SetInteger("attack", 2);
+            }
+        }
+    }
+
     void Action()
     {
+        StartCoroutine(CheckMovement(0.5f));
+    }
 
+    void Update()
+    {
+        if(checking)
+        {
+            if(_motion == Motion.Block)
+            {
+                if (_direction == Direction.Horizontal)
+                {
+                    if(WeaponChecker.orientation == "Horizontal")
+                    {
+                        BlockConfirm();
+                    }
+                }
+                else if (_direction == Direction.Vertical)
+                {
+                    if(WeaponChecker.orientation == "Vertical")
+                    {
+                        BlockConfirm();
+                    }
+                }
+            }
+        }
+    }
+
+    void BlockConfirm()
+    {
+        Debug.Log("Block Successful!");
+        anim.SetInteger("attack", 0);
+        anim.SetTrigger("die");
+        checking = false;
+        Die();
     }
 
     IEnumerator CheckMovement(float window)
     {
+        checking = true;
         yield return new WaitForSeconds(window);
+        checking = false;
     }
 	
 	public void Die()
