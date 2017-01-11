@@ -38,8 +38,8 @@ public class Obstacle : MonoBehaviour {
         }
         else if (stepsAway == 0)
         {
-            Destroy(gameObject);
-            juke.Remove(this);
+            //Destroy(gameObject);
+            //juke.Remove(this);
         }
         transform.DOScale(1.05f, 0.5f).OnComplete(() => { transform.DOScale(1.2f, 0.5f); });
         stepsAway--;
@@ -51,17 +51,23 @@ public class Obstacle : MonoBehaviour {
         {
             if (_direction == Direction.Horizontal)
             {
-                anim.SetInteger("attack", 1);
+                anim.SetInteger("motion", 1);
             }
             else if (_direction == Direction.Vertical)
             {
-                anim.SetInteger("attack", 2);
+                anim.SetInteger("motion", 2);
             }
         }
     }
 
     void Action()
     {
+        {
+            if (_motion == Motion.Block)
+            {
+                anim.SetTrigger("attack");
+            }
+        }
         StartCoroutine(CheckMovement(0.5f));
     }
 
@@ -92,10 +98,9 @@ public class Obstacle : MonoBehaviour {
     void BlockConfirm()
     {
         Debug.Log("Block Successful!");
-        anim.SetInteger("attack", 0);
+        anim.SetInteger("motion", 0);
         anim.SetTrigger("die");
         checking = false;
-        Die();
     }
 
     IEnumerator CheckMovement(float window)
@@ -103,10 +108,5 @@ public class Obstacle : MonoBehaviour {
         checking = true;
         yield return new WaitForSeconds(window);
         checking = false;
-    }
-	
-	public void Die()
-    {
-
     }
 }
